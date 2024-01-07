@@ -1,5 +1,6 @@
 package com.example.selfad
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import kotlinx.android.synthetic.main.activity_main.button_submit
@@ -23,12 +24,23 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun submitButtonClick() {
-        val contactName = edittext_contact_name
-        val contactNumber = edittext_contact_number
-        val myDisplayedName = edittext_my_displayed_name
-        val includeJunior = checkbox_include_junior
-        val jobTitle = spinner_job_title
-        val immediateStart = checkbox_immediate_start
-        val startDate = edittext_start_date
+        val contactName = edittext_contact_name.text.toString()
+        val contactNumber = edittext_contact_number.text.toString()
+        val myDisplayedName = edittext_my_displayed_name.text.toString()
+        val includeJunior = checkbox_include_junior.isChecked
+        val jobTitle = spinner_job_title.selectedItem.toString()
+        val immediateStart = checkbox_immediate_start.isChecked
+        val startDate = edittext_start_date.text.toString()
+
+        val previewIntent = Intent(this, PreviewActivity::class.java)
+        previewIntent.putExtra("Contact Name", contactName)
+        previewIntent.putExtra("Contact Number", contactNumber)
+        previewIntent.putExtra("My Displayed Name", myDisplayedName)
+        previewIntent.putExtra("Include Junior", includeJunior)
+        previewIntent.putExtra("Job Title", jobTitle)
+        previewIntent.putExtra("Immediate Start", immediateStart)
+        previewIntent.putExtra("Start Date", startDate)
+        startActivity(previewIntent)
+
     }
 }
