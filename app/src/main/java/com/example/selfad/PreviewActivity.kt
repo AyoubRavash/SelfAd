@@ -2,9 +2,11 @@ package com.example.selfad
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import kotlinx.android.synthetic.main.activity_preview.textview_message
-
+import android.widget.TextView
+import com.google.android.material.textfield.TextInputEditText
 class PreviewActivity : AppCompatActivity() {
+
+    private val messageTextView: TextView? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_preview)
@@ -20,6 +22,6 @@ class PreviewActivity : AppCompatActivity() {
         val jobTitle = intent.getStringExtra("Job Title")
         val immediateStart = intent.getBooleanExtra("Immediate Start", false)
         val startDate = intent.getStringExtra("Start Date")
-        textview_message.text = "contactName : $contactName, contactNumber : $contactNumber, myDisplayedName : $myDisplayedName, includeJunior : $includeJunior, jobTitle : $jobTitle, immediateStart : $immediateStart, startDate : $startDate"
+        messageTextView?.text = "contactName : $contactName, contactNumber : $contactNumber, myDisplayedName : $myDisplayedName, includeJunior : $includeJunior, jobTitle : $jobTitle, immediateStart : $immediateStart, startDate : $startDate"
     }
 }
