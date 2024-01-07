@@ -53,21 +53,21 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <CheckBox
-            android:id="@+id/checkbox_junior"
+            android:id="@+id/checkbox_include_junior"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="Include Junior" />
 
         <Spinner
-            android:id="@+id/spinner_list"
+            android:id="@+id/spinner_job_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             tools:listitem="@android:layout/simple_list_item_1" />
 
         <CheckBox
-            android:id="@+id/checkbox_start"
+            android:id="@+id/checkbox_immediate_start"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -89,7 +89,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <Button
-            android:id="@+id/btn_submit"
+            android:id="@+id/button_submit"
             style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
