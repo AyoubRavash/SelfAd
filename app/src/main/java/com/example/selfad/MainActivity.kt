@@ -3,6 +3,7 @@ package com.example.selfad
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.CheckBox
 import android.widget.Spinner
@@ -23,14 +24,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         submitButton = findViewById(R.id.button_submit)
-
-        submitButton?.setOnClickListener(){
-            submitButtonClick()
-        }
-    }
-
-    private fun submitButtonClick() {
-
         contactNameEditText = findViewById(R.id.edittext_contact_name)
         contactNumberEditText = findViewById(R.id.edittext_contact_number)
         myDisplayedNameEditText = findViewById(R.id.edittext_my_displayed_name)
@@ -38,6 +31,17 @@ class MainActivity : AppCompatActivity() {
         jobTitleSpinner = findViewById(R.id.spinner_job_title)
         immediateStartCheckbox = findViewById(R.id.checkbox_immediate_start)
         startDateEditText = findViewById(R.id.edittext_start_date)
+
+        submitButton?.setOnClickListener{
+            submitButtonClick()
+        }
+
+        val spinnerValues = arrayOf("Android Developer", "Android Engineer", "Android App Developer")
+        val spinnerAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, spinnerValues)
+        jobTitleSpinner?.adapter = spinnerAdapter
+    }
+
+    private fun submitButtonClick() {
 
         val contactNameEditText = contactNameEditText?.text.toString()
         val contactNumberEditText = contactNumberEditText?.text.toString()
