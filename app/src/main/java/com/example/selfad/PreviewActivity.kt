@@ -4,31 +4,35 @@ import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Button
 import android.widget.TextView
-import com.google.android.material.textfield.TextInputEditText
 
 class PreviewActivity : AppCompatActivity() {
 
     private lateinit var messageTextView: TextView
     private lateinit var message: Message
     private lateinit var previewMessage: String
-    @Suppress("DEPRECATION")
+    private lateinit var sendSmsButton: Button
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_preview)
 
+        @Suppress("DEPRECATION")
         message = intent.getSerializableExtra("Message") as Message
 
-        previewMessage = displayMessage()
+        previewMessage = displayMessage(message)
 
-        setupButton(previewMessage)
+        sendSmsButton = findViewById(R.id.button_send_message)
+        sendSmsButton.setOnClickListener {
+            setupButton(previewMessage, message)
+        }
     }
 
-    private fun displayMessage(): String {
+    private fun displayMessage(message: Message): String {
 
         messageTextView = findViewById(R.id.textview_message)
 
-        val previewMessage = """
+        previewMessage = """
                     Hello ${message.contactName}
                     
                     My name is ${message.myDisplayedName} and I am ${message.jobDescription()}.
@@ -46,11 +50,11 @@ class PreviewActivity : AppCompatActivity() {
         return previewMessage
     }
 
-    private fun setupButton(previewMessage: String) {
-        val intent = Intent(Intent.ACTION_SEND).apply {
-            data = Uri.parse("smsto:${message.contactNumber}")
+    private fun setupButton(previewMessage: String, message: Message) {
+        val intent = Intent(Intent.ACTION_SENDTO).apply {
+            data = Uri.parse("smsto: ${message.contactNumber}")
             putExtra("sms_body", previewMessage)
-            startActivity(intent)
         }
+        startActivity(intent)
     }
 }

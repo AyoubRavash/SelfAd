@@ -1,5 +1,7 @@
 package com.example.selfad
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
 import java.io.Serializable
 
 data class Message(
