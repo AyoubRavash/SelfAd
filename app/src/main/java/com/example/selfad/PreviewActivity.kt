@@ -1,29 +1,56 @@
 package com.example.selfad
 
+import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.TextView
 import com.google.android.material.textfield.TextInputEditText
+
 class PreviewActivity : AppCompatActivity() {
 
-    private var messageTextView: TextView? = null
+    private lateinit var messageTextView: TextView
+    private lateinit var message: Message
+    private lateinit var previewMessage: String
+    @Suppress("DEPRECATION")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_preview)
 
-        setMessageText()
+        message = intent.getSerializableExtra("Message") as Message
+
+        previewMessage = displayMessage()
+
+        setupButton(previewMessage)
     }
 
-    private fun setMessageText() {
-        val contactName = intent.getStringExtra("Contact Name")
-        val contactNumber = intent.getStringExtra("Contact Number")
-        val myDisplayedName = intent.getStringExtra("My Displayed Name")
-        val includeJunior = intent.getBooleanExtra("Include Junior", false)
-        val jobTitle = intent.getStringExtra("Job Title")
-        val immediateStart = intent.getBooleanExtra("Immediate Start", false)
-        val startDate = intent.getStringExtra("Start Date")
+    private fun displayMessage(): String {
 
         messageTextView = findViewById(R.id.textview_message)
-        messageTextView?.text = "contactName : $contactName, contactNumber : $contactNumber, myDisplayedName : $myDisplayedName, includeJunior : $includeJunior, jobTitle : $jobTitle, immediateStart : $immediateStart, startDate : $startDate"
+
+        val previewMessage = """
+                    Hello ${message.contactName}
+                    
+                    My name is ${message.myDisplayedName} and I am ${message.jobDescription()}.
+                    
+                    I have very good skills in developing android apps that I can show on request.
+                    
+                    I am able to start a new position ${message.startTime()}.
+                    
+                    Please get in touch if you have any suitable roles for me.
+                    
+                    Thanks and best regards.
+                """.trimIndent()
+
+        messageTextView.text = previewMessage
+        return previewMessage
+    }
+
+    private fun setupButton(previewMessage: String) {
+        val intent = Intent(Intent.ACTION_SEND).apply {
+            data = Uri.parse("smsto:${message.contactNumber}")
+            putExtra("sms_body", previewMessage)
+            startActivity(intent)
+        }
     }
 }
