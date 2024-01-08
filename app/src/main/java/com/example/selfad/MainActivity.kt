@@ -25,35 +25,32 @@ class MainActivity : AppCompatActivity() {
 
         findViews()
 
-        submitButton?.setOnClickListener{
+        submitButton.setOnClickListener {
             submitButtonClick()
         }
 
-        val spinnerValues = arrayOf("Android Developer", "Android Engineer", "Android App Developer")
-        val spinnerAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, spinnerValues)
+        val spinnerValues =
+            arrayOf("Android Developer", "Android Engineer", "Android App Developer")
+        val spinnerAdapter =
+            ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, spinnerValues)
         jobTitleSpinner.adapter = spinnerAdapter
     }
 
     private fun submitButtonClick() {
 
-        val contactNameEditText = contactNameEditText.text.toString()
-        val contactNumberEditText = contactNumberEditText.text.toString()
-        val myDisplayedNameEditText = myDisplayedNameEditText.text.toString()
-        val includeJuniorCheckBox = includeJuniorCheckBox.isChecked
-        val jobTitleSpinner = jobTitleSpinner.selectedItem.toString()
-        val immediateStartCheckbox = immediateStartCheckbox.isChecked
-        val startDateEditText = startDateEditText.text.toString()
+        val message = Message(
+            contactNameEditText.text.toString(),
+            contactNumberEditText.text.toString(),
+            myDisplayedNameEditText.text.toString(),
+            includeJuniorCheckBox.isChecked,
+            jobTitleSpinner.selectedItem.toString(),
+            immediateStartCheckbox.isChecked,
+            startDateEditText.text.toString()
+        )
 
         val previewIntent = Intent(this, PreviewActivity::class.java)
-        previewIntent.putExtra("Contact Name", contactNameEditText)
-        previewIntent.putExtra("Contact Number", contactNumberEditText)
-        previewIntent.putExtra("My Displayed Name", myDisplayedNameEditText)
-        previewIntent.putExtra("Include Junior", includeJuniorCheckBox)
-        previewIntent.putExtra("Job Title", jobTitleSpinner)
-        previewIntent.putExtra("Immediate Start", immediateStartCheckbox)
-        previewIntent.putExtra("Start Date", startDateEditText)
+        previewIntent.putExtra("Message", message)
         startActivity(previewIntent)
-
     }
 
     private fun findViews() {
